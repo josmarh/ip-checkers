@@ -28,9 +28,21 @@
         </form> 
 
         <div>
-          {{ res }}
+          <table class="table table-striped">
+            {% for key in res: %}
+            <tr>
+              <th>{{ key }}</th>
+              <td>{{ res[key] }}</td>
+            </tr>
+            {%  endfor  %}
+          </table>
+              
+                 
+              
+
+          
         </div>
-        
+
       </div>
         
      
