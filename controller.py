@@ -13,16 +13,19 @@ def index():
 @app.route('/search',methods = ['GET'])
 def ipSearch():
    search = request.args.get('ipaddress')
-   url = 'https://api.ipgeolocation.io/ipgeo?apiKey=xxxxxxxxxxxxxxxxxxxxxxxx&ip='+search
-   data = '{ "ip":search }'
-   headers = {
-      'Content-Type': 'application/json; charset=utf-8',
-      'cache-control': "no-cache"
-    }
+   if(search != ''):
+      url = 'https://api.ipgeolocation.io/ipgeo?apiKey=xxxxxxxxxxxxxxxxxxxxxxxxxx&ip='+search
+      data = '{ "ip":search }'
+      headers = {
+         'Content-Type': 'application/json; charset=utf-8',
+         'cache-control': "no-cache"
+      }
    
-   response = requests.request("GET", url, data=data, headers=headers)
+      response = requests.request("GET", url, data=data, headers=headers)
 
-   return render_template('index.html', res = response.json(), ipadd=search)
+      return render_template('index.html', res = response.json(), ipadd=search)
+   else:
+      return render_template('index.html')
 
 
 if __name__ == '__main__':
