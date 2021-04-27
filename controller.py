@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request
 import requests
 import json
 
@@ -14,7 +14,7 @@ def index():
 def ipSearch():
    search = request.args.get('ipaddress')
    if(search != ''):
-      url = 'https://api.ipgeolocation.io/ipgeo?apiKey=xxxxxxxxxxxxxxxxxxxxxxxxxx&ip='+search
+      url = 'https://api.ipgeolocation.io/ipgeo?apiKey=xxxxxxxxxxxxxxxxxxxxxxx&ip='+search
       data = '{ "ip":search }'
       headers = {
          'Content-Type': 'application/json; charset=utf-8',
@@ -23,7 +23,10 @@ def ipSearch():
    
       response = requests.request("GET", url, data=data, headers=headers)
 
-      return render_template('index.html', res = response.json(), ipadd=search)
+      if response.ok:
+         return render_template('index.html', res = response.json(), ipadd=search)
+      else:
+         return render_template('index.html')
    else:
       return render_template('index.html')
 
